@@ -1,24 +1,36 @@
-#include "main.h"
-
 /**
- * _strstr - fills memory with a constant byte.
- * @haystack: first bytes of the memory
- * @needle: constant byte b
- * Return: pointer to the resulting string dests
- */
+ * _strstr - a function that locates a substring
+ *
+ * @haystack: input string to search for matching
+ *            substrings
+ * @needle: subtring to search for
+ *
+ * Return: a pointer to the beginning
+ *         of the located substring or
+ *         NULL if substring is not found
+*/
+
 char *_strstr(char *haystack, char *needle)
 {
-	int i, j;
+	/**
+	 * we initialize a helping variables
+	 * to assist in returning one of
+	 * our parameters pointers haystack
+	*/
+	char *h, *n;
 
-	for (i = 0; haystack[i] != '\0'; i++)
+	while (*haystack != '\0')
 	{
-		for (j = 0; needle[j] != '\0'; j++)
+		h = haystack;
+		n = needle;
+		while (*n != '\0' && *haystack == *n)
 		{
-			if (haystack[i + j] != needle[j])
-				break;
+			haystack++;
+			n++;
 		}
-		if (needle[j] == '\0')
-			return (haystack + i);
+		if (!*n)
+			return (h);
+		haystack++;
 	}
 	return ('\0');
 }
