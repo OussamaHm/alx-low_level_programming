@@ -1,17 +1,23 @@
-#include "main.h"
+#include <stdlib.h>
+
 /**
- * free_grid - function that concatenates two strings
- * @grid: first bytes of the memory
- * @height: constant byte b
- * Return: pointer to the resulting string dests
- */
+ * free_grid -  free up a 2d array grid
+ *
+ * @grid: double pointer 2d grid
+ * @height: height of grid
+ *
+ * Return: nothing
+*/
+
 void free_grid(int **grid, int height)
 {
-	int i;
-
-	for (i = 0; i < height; i++)
+	if (grid != NULL && height != 0)
 	{
-		free(grid[i]);
+		while (height >= 0)
+		{
+			free(grid[height]);
+			height--;
+		}
+		free(grid);
 	}
-	free(grid);
 }
