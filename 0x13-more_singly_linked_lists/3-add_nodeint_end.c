@@ -11,28 +11,24 @@
 */
 listint_t *add_nodeint_end(listint_t **head, const int n)
 {
-	listint_t *new_node, *temp;
+	listint_t *rayb, *zbda;
 
-	new_node = malloc(sizeof(listint_t));
-	if (new_node == NULL)
+	rayb = malloc(sizeof(listint_t));
+	if (rayb == NULL)
 		return (NULL);
 
-	new_node->n = n;
-	new_node->next = NULL;
+	rayb->n = n;
+	rayb->next = NULL;
 
-	temp = *head;
+	zbda = *head;
 
-	/*place new_node first if head is NULL*/
-	if (temp == NULL)
-		*head = new_node;
+	if (zbda == NULL)
+		*head = rayb;
 	else
 	{
-		/*if head is not null, and next is not NULL*/
-		while (temp->next != NULL)
-			temp = temp->next;	/*go to the last node*/
-
-		/*place our new node at the end*/
-		temp->next = new_node;
+		while (zbda->next != NULL)
+			zbda = zbda->next;
+		zbda->next = rayb;
 	}
 
 	return (*head);
