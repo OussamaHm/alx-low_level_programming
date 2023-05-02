@@ -1,45 +1,44 @@
+#include "main.h"
+
 /**
- * _sqrt_recursion_wrapper - a wrapper that does the recursion bit
- *
- * @n : input number
- * @min: minimum number to guess
- * @max: maximum number to guess
- *
- * Return: square root of @n or -1
-*/
-int _sqrt_recursion_wrapper(int n, int min, int max)
+ * _sqrt_recursion2 - fills memory with a constant byte.
+ * @n: first bytes of the memory
+ * @sqrt: first bytes of the memory
+ * @res: first bytes of the memory
+ * Return: -
+ */
+float _sqrt_recursion2(int n, float sqrt, float res)
 {
-	int guess, guess_squared;
-
-	guess = (min + max) / 2;		/*get guess (g)*/
-	guess_squared = guess * guess;		/*square guess (sg)*/
-
-	if (guess_squared == n)			/*if squared guess == n return guess*/
-		return (guess);
-	else if (min == max)			/*this means n doesn't have a perfect square*/
-		return (-1);
-	else if (guess_squared < n)		/*overshoot g if sg is less than the n*/
-		return (_sqrt_recursion_wrapper(n, guess + 1, max));
-	else					/*undershoot g if sg is more than the n*/
-		return (_sqrt_recursion_wrapper(n, min, guess - 1));
+	if (sqrt == res)
+	{
+		if ((int)sqrt == sqrt)
+		{
+			return (sqrt);
+		}
+		else
+		{
+			return (-1);
+		}
+	}
+	res = sqrt;
+	sqrt = (n / res + res) / 2;
+	return (_sqrt_recursion2(n, sqrt, res));
 }
 
 /**
- * _sqrt_recursion - a function that returns the natural
- *                   square root of a number
- *
- * @n: input number
- *
- * Return: square root
-*/
+ * _sqrt_recursion - fills memory with a constant byte.
+ * @n: first bytes of the memory
+ * Return: -
+ */
 int _sqrt_recursion(int n)
 {
-	if (n == 1)		/*sqrt(1) == 1*/
+	float res, sqrt;
+
+	sqrt = n / 2;
+	res = 0;
+	if (n == 1)
 		return (1);
-	else if (n == 0)	/*sqrt(0) == 0*/
-		return (0);
-	else if (n < 0)		/*sqrt(-n) == -1 (NA)*/
+	if (n < 0)
 		return (-1);
-	else
-		return (_sqrt_recursion_wrapper(n, 1, n));
+	return (_sqrt_recursion2(n, sqrt, res));
 }
