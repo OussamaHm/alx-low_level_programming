@@ -1,44 +1,33 @@
 #include "main.h"
 
 /**
- * _sqrt_recursion2 - fills memory with a constant byte.
- * @n: first bytes of the memory
- * @sqrt: first bytes of the memory
- * @res: first bytes of the memory
- * Return: -
+ * find_root - find square root of n, starting from the smallest possible, 0
+ * @n: n
+ * @root: test this root
+ * Return: natural square root, or -1 if not natural root
  */
-float _sqrt_recursion2(int n, float sqrt, float res)
+
+int find_root(int n, int root)
 {
-	if (sqrt == res)
-	{
-		if ((int)sqrt == sqrt)
-		{
-			return (sqrt);
-		}
-		else
-		{
-			return (-1);
-		}
-	}
-	res = sqrt;
-	sqrt = (n / res + res) / 2;
-	return (_sqrt_recursion2(n, sqrt, res));
+	if (root * root > n)
+		return (-1);
+
+	if (root * root == n)
+		return (root);
+
+	return (find_root(n, root + 1));
 }
 
 /**
- * _sqrt_recursion - fills memory with a constant byte.
- * @n: first bytes of the memory
- * Return: -
+ * _sqrt_recursion - function that returns the natural square root of a number.
+ * @n: n
+ * Return: natural square root, or -1 if not natural root
  */
+
 int _sqrt_recursion(int n)
 {
-	float res, sqrt;
-
-	sqrt = n / 2;
-	res = 0;
-	if (n == 1)
-		return (1);
 	if (n < 0)
 		return (-1);
-	return (_sqrt_recursion2(n, sqrt, res));
+
+	return (find_root(n, 0));
 }

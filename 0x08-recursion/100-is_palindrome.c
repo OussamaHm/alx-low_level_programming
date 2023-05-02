@@ -1,48 +1,47 @@
 #include "main.h"
 
 /**
- * _strlen_recursion2 - fills memory with a constant byte.
- * @s: first bytes of the memory
- * Return: -
+ * compare - compare head and tail indices for match
+ * @head: index starting from left of string
+ * @tail: index starting from right of string, moving backwards
+ * Return: 1 if palindrome, 0 if not
  */
-int _strlen_recursion2(char *s)
-{
-	if (*s == '\0')
-	{
-		return (0);
-	}
-	return (_strlen_recursion2(s + 1) + 1);
-}
 
-/**
- * comp_rec - fills memory with a constant byte.
- * @s: first bytes of the memory
- * @ln: first bytes of the memory
- * @i: first bytes of the memory
- * Return: -
- */
-int comp_rec(char *s, int ln, int i)
+int compare(char *head, char *tail)
 {
-	if (i >= ln)
-	{
+
+	if (head >= tail)
 		return (1);
-	}
-	if (*(s + i) != *(s + (ln - 1)))
-	{
-		return (0);
-	}
-	return (comp_rec(s, ln - 1, i + 1));
+	if (*head == *tail)
+		return (compare(head + 1, tail - 1));
+
+	return (0);
 }
 
 /**
- * is_palindrome - fills memory with a constant byte.
- * @s: first bytes of the memory
- * Return: -
+ * _strlen - find length of string to access last index
+ * @s: string
+ * Return: length
  */
+
+int _strlen(char *s)
+{
+
+	if (*s == '\0')
+		return (0);
+	s++;
+	return (1 + (_strlen(s)));
+}
+
+/**
+ * is_palindrome - check if palindrome
+ * @s: string to check
+ * Return: 1 if palindrome, 0 if not
+ */
+
 int is_palindrome(char *s)
 {
-	int ln = _strlen_recursion2(s);
-	int i = 0;
+	int len = _strlen(s);
 
-	return (comp_rec(s, ln, i));
+	return (compare(s, (s + len - 1)));
 }
