@@ -1,49 +1,51 @@
-#include "main.h"
+#include <stdlib.h>
+
 /**
- * string_nconcat - function that creates an array of chars,
- *  and initializes it with a specific char
- * @s1: first bytes of the memory
- * @s2: first bytes of the memory
- * @n: first bytes of the memory
- * Return: pointer to the resulting string dests
- */
+ * string_nconcat - function that concatenates two strings
+ *
+ * @s1: string 1
+ * @s2: string 2
+ * @n: bytes of @s2 to add to @s1 to be a new string
+ *
+ * Return: new string followed by the first @n bytes
+ *         of string 2 @s2 or NULL
+*/
+
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	unsigned int i;
-	char *copy;
-	unsigned int size1 = 0;
-	unsigned int size2 = 0;
+	unsigned int l1, l2, i, j;
+	char *str;
 
-	if (s2 == NULL)
-		s2 = "";
+	/*treat NULL as empty string*/
 	if (s1 == NULL)
 		s1 = "";
-	while (s1[size1])
-	{
-		size1++;
-	}
-	while (s2[size2])
-	{
-		size2++;
-	}
-	if (size2 > n)
-		size2 = n;
-	copy = malloc(size1 + size2 + 1);
-	if (!copy)
-	{
+	if (s2 == NULL)
+		s2 = "";
+
+	l1 = l2 = 0;
+	/*length of both s1 & s2 respectively*/
+	while (s1[l1] != '\0')
+		l1++;
+	while (s2[l2] != '\0')
+		l2++;
+
+	/*set n to length of s2*/
+	if (n >= l2)
+		n = l2;
+
+	str = (char *) malloc((l1 + n + 1) * sizeof(char));
+	if (str == NULL)
 		return (NULL);
-	}
-	for (i = 0; i < size1 + size2; i++)
+
+	/*add s1 to str*/
+	for (i = 0; s1[i] != '\0'; i++)
+		str[i] = s1[i];
+	/*add s2 n bytes to str*/
+	for (j = 0; j < n && s2[j] != '\0'; j++)
 	{
-		if (i < size1)
-		{
-			copy[i] = s1[i];
-		}
-		else
-		{
-			copy[i] = s2[i - size1];
-		}
+		str[i] = s2[j];
+		i++;
 	}
-	copy[i] = '\0';
-	return (copy);
+	str[i] = '\0';
+	return (str);
 }
